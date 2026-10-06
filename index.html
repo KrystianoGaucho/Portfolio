@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krystian Chojnacki | DevOps & DevSecOps Engineer</title>
+    <meta name="description" content="Portfolio Krystiana Chojnackiego - DevOps & DevSecOps Engineer. Zaawansowana administracja Linux, Proxmox VE, Ansible, Docker, dyrektywa NIS2 i monitoring Zabbix.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0b0f17;
+            --bg-surface: #111827;
+            --bg-card: #162032;
+            --bg-card-hover: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --accent-green: #10b981;
+            --accent-green-glow: rgba(16, 185, 129, 0.2);
+            --accent-blue: #38bdf8;
+            --accent-blue-glow: rgba(56, 189, 248, 0.25);
+            --accent-amber: #f59e0b;
+            --accent-purple: #a855f7;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(56, 189, 248, 0.4);
+            --grid-line: rgba(255, 255, 255, 0.035);
+            --header-h: 74px;
+            --container-max: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--header-h);
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* TŁO CYBER GRID */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .bg-radial {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 15%, rgba(56, 189, 248, 0.07) 0%, transparent 50%),
+                radial-gradient(circle at 80% 60%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            height: var(--header-h);
+            background: rgba(11, 15, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 max(20px, 5vw);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-green);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s, text-shadow 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+            text-shadow: 0 0 12px var(--accent-blue-glow);
+        }
+
+        .nav-cv-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .nav-cv-btn:hover {
+            background: var(--accent-blue);
+            color: #0b0f17;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-main);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        /* KONTENER GŁÓWNY */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 90px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            padding: 70px 0 90px 0;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-info .meta-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 4.8vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .hero-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+            color: var(--accent-blue);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cursor {
+            color: var(--accent-green);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 35px;
+            max-width: 600px;
+        }
+
+        .hero-desc strong {
+            color: var(--text-main);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--accent-blue);
+            color: #0b0f17;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #7dd3fc;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 26px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        /* TERMINAL WIDGET */
+        .terminal-box {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .terminal-header {
+            background: #1e293b;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 7px;
+        }
+
+        .t-btn {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .t-btn.red { background: #ef4444; }
+        .t-btn.yellow { background: #f59e0b; }
+        .t-btn.green { background: #10b981; }
+
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .terminal-body {
+            padding: 18px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            min-height: 320px;
+            max-height: 380px;
+            overflow-y: auto;
+            line-height: 1.55;
+        }
+
+        .t-prompt {
+            color: var(--accent-green);
+        }
+
+        .t-path {
+            color: var(--accent-blue);
+        }
+
+        .t-output {
+            margin: 6px 0 14px 0;
+            color: #94a3b8;
+        }
+
+        .t-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .t-chip {
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--accent-blue);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .t-chip:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        /* SECTION: ABOUT / STATS */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            line-height: 1.75;
+        }
+
+        .about-text strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 24px 20px;
+            border-radius: 8px;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+        }
+
+        .stat-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 6px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* SECTION: TECH STACK */
+        .stack-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .stack-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stack-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-blue);
+            opacity: 0.6;
+        }
+
+        .stack-card.security::before { background: var(--accent-amber); }
+        .stack-card.monitoring::before { background: var(--accent-green); }
+        .stack-card.virtual::before { background: var(--accent-purple); }
+
+        .stack-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stack-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .stack-card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stack-card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-pill {
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            transition: all 0.2s;
+        }
+
+        .stack-card:hover .tech-pill {
+            border-color: rgba(56, 189, 248, 0.25);
+            color: #ffffff;
+        }
+
+        /* SECTION: PROJECTS */
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .project-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .project-badge.sec {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--accent-amber);
+            color: var(--accent-amber);
+        }
+
+        .project-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 22px;
+        }
+
+        .project-highlights {
+            background: rgba(11, 15, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 20px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+        }
+
+        .project-highlights ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .project-highlights li {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-highlights li::before {
+            content: '>';
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        /* SECTION: CAREER TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--bg-base);
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-blue-glow);
+        }
+
+        .timeline-item:first-child .timeline-dot {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green-glow);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-role {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .timeline-company {
+            color: var(--accent-blue);
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        .timeline-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .timeline-desc ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .timeline-desc li {
+            margin-bottom: 6px;
+        }
+
+        /* SECTION: CONTACT */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            font-size: 1.4rem;
+        }
+
+        .contact-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            background: #0b0f17;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 16px;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            border-radius: 6px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px var(--accent-blue-glow);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 40px 0;
+            background: #080c14;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        footer a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 968px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .stack-categories {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: var(--header-h);
+                left: 0;
+                width: 100%;
+                background: #0f172a;
+                border-bottom: 1px solid var(--border-color);
+                padding: 24px;
+                gap: 18px;
+                z-index: 999;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+            .mobile-menu.active {
+                transform: translateY(0);
+            }
+            .mobile-menu a {
+                color: var(--text-main);
+                text-decoration: none;
+                font-size: 1.1rem;
+                padding: 8px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+    <div class="bg-radial"></div>
+
+    <!-- HEADER -->
+    <header>
+        <a href="#" class="logo-wrap">
+            <span class="logo">&lt;KRYSTIAN<span>.DEV</span> /&gt;</span>
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                <span>ONLINE</span>
+            </div>
+        </a>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#about">// 01. o_mnie</a></li>
+                <li><a href="#stack">// 02. stack</a></li>
+                <li><a href="#projects">// 03. projekty</a></li>
+                <li><a href="#experience">// 04. kariera</a></li>
+                <li><a href="#contact">// 05. kontakt</a></li>
+            </ul>
+
+            <a href="cv.pdf" download class="nav-cv-btn">
+                <span>[ POBIERZ CV ]</span>
+            </a>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" class="m-link">// 01. O Mnie</a>
+        <a href="#stack" class="m-link">// 02. Stack Technologiczny</a>
+        <a href="#projects" class="m-link">// 03. Projekty</a>
+        <a href="#experience" class="m-link">// 04. Doświadczenie</a>
+        <a href="#contact" class="m-link">// 05. Kontakt</a>
+        <a href="cv.pdf" download class="nav-cv-btn" style="text-align: center; justify-content: center;">[ POBIERZ CV (PDF) ]</a>
+    </div>
+
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <div class="hero-info">
+                <div class="meta-tag">
+                    <span>⚡ INFRASTRUCTURE & SECURITY COMPLIANCE</span>
+                </div>
+                <h1 class="hero-title">Krystian Chojnacki</h1>
+                <div class="hero-role">
+                    <span id="typewriter">DEVOPS & DEVSECOPS ENGINEER</span><span class="cursor">_</span>
+                </div>
+                <p class="hero-desc">
+                    Łączę <strong>utrzymanie infrastruktury serwerowej</strong> z <strong>automatyzacją procesów (IaC)</strong> oraz najwyższymi standardami bezpieczeństwa i zgodności (<strong>dyrektywa NIS2 / UKSC</strong>, server hardening, audyty IT). Specjalizuję się w wirtualizacji <strong>Proxmox VE</strong>, ekosystemie <strong>Linux</strong>, konteneryzacji <strong>Docker</strong> i monitoringu <strong>Zabbix API</strong>.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#projects" class="btn-primary">
+                        <span>SPRAWDŹ REALIZACJE</span>
+                        <span>→</span>
+                    </a>
+                    <a href="cv.pdf" download class="btn-secondary">
+                        <span>POBIERZ CV (PDF)</span>
+                        <span>↓</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- INTERACTIVE TERMINAL -->
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="t-btn red"></span>
+                        <span class="t-btn yellow"></span>
+                        <span class="t-btn green"></span>
+                    </div>
+                    <span class="terminal-title">krystian@infra-vps:~ (bash)</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-green);" class="mono">STATUS: 200 OK</span>
+                </div>
+                <div class="terminal-body" id="termBody">
+                    <div><span class="t-prompt">krystian@infra-vps</span>:<span class="t-path">~</span>$ neofetch --devsecops</div>
+                    <div class="t-output">
+                        <span style="color: var(--accent-blue);">OS:</span> Debian GNU/Linux 12 (Hardened Kernel)<br>
+                        <span style="color: var(--accent-blue);">Role:</span> DevOps & Systems Administrator<br>
+                        <span style="color: var(--accent-blue);">Hypervisor:</span> Proxmox VE (KVM / LXC / ZFS)<br>
+                        <span style="color: var(--accent-blue);">IaC & Dev:</span> Ansible, Docker, Bash, Python (Flask)<br>
+                        <span style="color: var(--accent-blue);">Compliance:</span> EU NIS2 Directive, UKSC Baseline<br>
+                        <span style="color: var(--accent-blue);">Monitoring:</span> Zabbix API + Signal Push Webhooks<br>
+                        <span style="color: var(--accent-blue);">Uptime:</span> 99.98% (High Availability)
+                    </div>
+                    <div><span class="t-prompt">krystian@infra-vps</span>:<span class="t-path">~</span>$ <span id="termCommandText">help</span></div>
+                    <div class="t-output" id="termInteractiveOutput">
+                        Dostępne komendy interaktywne. Kliknij przycisk poniżej lub wpisz polecenie:
+                    </div>
+                </div>
+                <div class="t-chips" style="padding: 10px 18px; background: rgba(0,0,0,0.3);">
+                    <span class="t-chip" onclick="runCli('whoami')">$ whoami</span>
+                    <span class="t-chip" onclick="runCli('nis2')">$ audit --nis2</span>
+                    <span class="t-chip" onclick="runCli('stack')">$ cat stack.yml</span>
+                    <span class="t-chip" onclick="runCli('uptime')">$ uptime</span>
+                    <span class="t-chip" onclick="runCli('contact')">$ ./contact.sh</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: O MNIE -->
+        <section id="about">
+            <div class="section-header">
+                <span class="section-tag">// 01. PROFIL_ZAWODOWY</span>
+                <h2 class="section-title">Inżynieria Infrastruktury & Bezpieczeństwo</h2>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        Posiadam komercyjne doświadczenie w zarządzaniu produkcyjnymi środowiskami IT (m.in. w <strong>Lehmann + Partner Polska</strong> oraz <strong>CorpoTech</strong>). Moim celem jest budowanie niezawodnej, przewidywalnej infrastruktury opartej na zasadach <em>Zero Trust</em>, automatyzacji powtarzalnych czynności oraz proaktywnym wykrywaniu anomalii.
+                    </p>
+                    <p>
+                        W codziennej pracy nie ograniczam się do szablonowych zadań administratora. Samodzielnie projektuję i wdrażam klastry <strong>Proxmox VE</strong> z zaawansowaną konfiguracją pamięci masowej ZFS, automatyzuję konfigurację serwerów przez <strong>Ansible</strong> i konteneryzację <strong>Docker</strong>, a także wdrażam standardy cyberbezpieczeństwa zgodne z <strong>unijną dyrektywą NIS2 i polską Ustawą o KSC</strong>.
+                    </p>
+                    <p>
+                        Tworzę również autorskie oprogramowanie wspierające inżynierów (<strong>Python/Flask, API, webhooki</strong>), co pozwala eliminować ludzkie błędy i drastycznie skracać czas reakcji na incydenty.
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-val">2+</div>
+                        <div class="stat-label">Lata komercyjnego doświadczenia w systemach i sieciach</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">NIS2</div>
+                        <div class="stat-label">Dyrektywa UE & UKSC: audyty, procedury i hardening</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">&lt; 10s</div>
+                        <div class="stat-label">Czas reakcji alertów Zabbix zintegrowanych z Signal API</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">200+</div>
+                        <div class="stat-label">Scenariuszy QA w autorskiej aplikacji automatyzacji testów</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: STACK -->
+        <section id="stack">
+            <div class="section-header">
+                <span class="section-tag">// 02. MODUŁY_SYSTEMOWE</span>
+                <h2 class="section-title">Technologie & Zdolności Operacyjne</h2>
+            </div>
+
+            <div class="stack-categories">
+                <!-- DEVOPS & IAC -->
+                <div class="stack-card">
+                    <div class="stack-card-header">
+                        <h3 class="stack-card-title">DEVOPS & IAC</h3>
+                        <span class="mono" style="color: var(--accent-blue);">01</span>
+                    </div>
+                    <p class="stack-card-desc">Automatyzacja provisioningu, powtarzalne środowiska i orkiestracja konfiguracji.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Docker</span>
+                        <span class="tech-pill">Docker Compose</span>
+                        <span class="tech-pill">Ansible Playbooks</span>
+                        <span class="tech-pill">Terraform (IaC)</span>
+                        <span class="tech-pill">Git / GitHub</span>
+                        <span class="tech-pill">Bash Scripting</span>
+                        <span class="tech-pill">CI/CD workflows</span>
+                    </div>
+                </div>
+
+                <!-- WIRTUALIZACJA & LINUX -->
+                <div class="stack-card virtual">
+                    <div class="stack-card-header">
+                        <h3 class="stack-card-title">WIRTUALIZACJA & SYSTEMY</h3>
+                        <span class="mono" style="color: var(--accent-purple);">02</span>
+                    </div>
+                    <p class="stack-card-desc">Projektowanie i utrzymanie infrastruktury serwerowej na poziomie bare-metal i hypervisora.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Proxmox VE (Klastry)</span>
+                        <span class="tech-pill">KVM & LXC</span>
+                        <span class="tech-pill">ZFS Storage & Pools</span>
+                        <span class="tech-pill">Proxmox Backup Server</span>
+                        <span class="tech-pill">Linux (Debian / Ubuntu)</span>
+                        <span class="tech-pill">VMware ESXi</span>
+                        <span class="tech-pill">Windows Server / AD</span>
+                    </div>
+                </div>
+
+                <!-- CYBERSECURITY & NIS2 -->
+                <div class="stack-card security">
+                    <div class="stack-card-header">
+                        <h3 class="stack-card-title">SECURITY & NIS2</h3>
+                        <span class="mono" style="color: var(--accent-amber);">03</span>
+                    </div>
+                    <p class="stack-card-desc">Zgodność z unijnymi ramami prawnymi, ochrona infrastruktury krytycznej i hardening.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Dyrektywa NIS2</span>
+                        <span class="tech-pill">Ustawa o KSC (UKSC)</span>
+                        <span class="tech-pill">Server Hardening (CIS)</span>
+                        <span class="tech-pill">Audyty podatności</span>
+                        <span class="tech-pill">SSL/TLS PKI & Certbot</span>
+                        <span class="tech-pill">Firewall (UFW / iptables)</span>
+                        <span class="tech-pill">Disaster Recovery (DR)</span>
+                    </div>
+                </div>
+
+                <!-- MONITORING & BACKEND -->
+                <div class="stack-card monitoring">
+                    <div class="stack-card-header">
+                        <h3 class="stack-card-title">MONITORING & DEVELOPMENT</h3>
+                        <span class="mono" style="color: var(--accent-green);">04</span>
+                    </div>
+                    <p class="stack-card-desc">Ciągły nadzór nad metrykami, natychmiastowy alerting oraz dedykowany backend.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Zabbix (Hosts/Triggers)</span>
+                        <span class="tech-pill">Zabbix API</span>
+                        <span class="tech-pill">Signal API & Webhooki</span>
+                        <span class="tech-pill">Python (Flask, Requests)</span>
+                        <span class="tech-pill">PHP Backend</span>
+                        <span class="tech-pill">Nginx / Apache Proxy</span>
+                        <span class="tech-pill">MySQL / PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: PROJEKTY -->
+        <section id="projects">
+            <div class="section-header">
+                <span class="section-tag">// 03. CASE_STUDIES</span>
+                <h2 class="section-title">Wdrożenia & Architektury Inżynierskie</h2>
+            </div>
+
+            <div class="projects-grid">
+
+                <!-- PROJEKT 1: NIS2 & HARDENING -->
+                <article class="project-card">
+                    <div class="project-top">
+                        <h3 class="project-title">Program Zgodności NIS2 / UKSC & Linux Server Hardening</h3>
+                        <div class="project-badges">
+                            <span class="project-badge sec">CYBERSECURITY</span>
+                            <span class="project-badge sec">NIS2 / UKSC</span>
+                            <span class="project-badge">ANSIBLE</span>
+                            <span class="project-badge">LINUX HARDENING</span>
+                        </div>
+                    </div>
+                    <p class="project-desc">
+                        Kompleksowe przygotowanie i adaptacja infrastruktury serwerowej do wymogów Europejskiej Dyrektywy <strong>NIS2</strong> oraz <strong>Ustawy o Krajowym Systemie Cyberbezpieczeństwa</strong>. Projekt objął wewnętrzne audyty podatności, analizę ryzyka, opracowanie procedur Disaster Recovery oraz stworzenie zautomatyzowanych playbooków Ansible do utwardzania (hardeningu) systemów Debian/Ubuntu i Windows Server.
+                    </p>
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Audyt bezpieczeństwa kont, uprawnień i usług sieciowych</li>
+                            <li>Zautomatyzowany hardening SSH, firewalli UFW/iptables, fail2ban</li>
+                            <li>Wdrożenie polityki najmniejszych uprawnień (Least Privilege)</li>
+                            <li>Standaryzacja cyklu życia certyfikatów SSL/TLS i szyfrowania danych</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- PROJEKT 2: ZABBIX-SIGNAL -->
+                <article class="project-card">
+                    <div class="project-top">
+                        <h3 class="project-title">Zabbix-Signal Alerting System (Real-Time Dispatcher)</h3>
+                        <div class="project-badges">
+                            <span class="project-badge">ZABBIX API</span>
+                            <span class="project-badge">PYTHON</span>
+                            <span class="project-badge">SIGNAL REST API</span>
+                            <span class="project-badge">MONITORING</span>
+                        </div>
+                    </div>
+                    <p class="project-desc">
+                        Autorski mikromoduł w języku Python integrujący komercyjne środowisko Zabbix z API szyfrowanego komunikatora Signal. System filtruje zdarzenia infrastruktury w czasie rzeczywistym, wysyłając natychmiastowe, sformatowane notyfikacje o krytycznych awariach i anomaliach sprzętowych bezpośrednio do inżynierów dyżurnych.
+                    </p>
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Czas dostarczenia powiadomienia o awarii serwera poniżej 5 sekund</li>
+                            <li>Filtrowanie alertów i unikanie zjawiska alert fatigue (szumu)</li>
+                            <li>Bezpieczna komunikacja z REST API z autoryzacją tokenem</li>
+                            <li>Pełne logowanie incydentów i mechanizm ponawiania przy braku sieci</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- PROJEKT 3: TESTERAPP -->
+                <article class="project-card">
+                    <div class="project-top">
+                        <h3 class="project-title">TesterApp – Dedykowana Platforma Automatyzacji QA</h3>
+                        <div class="project-badges">
+                            <span class="project-badge">PYTHON (FLASK)</span>
+                            <span class="project-badge">SQL</span>
+                            <span class="project-badge">QA AUTOMATION</span>
+                            <span class="project-badge">RAPORTOWANIE</span>
+                        </div>
+                    </div>
+                    <p class="project-desc">
+                        Zaprojektowanie i wdrożenie produkcyjnej aplikacji webowej w Python (Flask) mającej na celu wyeliminowanie czynnika ludzkiego w procesach kontroli jakości i testowania oprogramowania. Aplikacja dynamicznie generuje scenariusze testowe, wymusza załączanie materiału dowodowego (weryfikacja fotograficzna) i automatycznie kompiluje ustandaryzowane raporty.
+                    </p>
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Obsługa rozbudowanej bazy ponad 200 dynamicznych scenariuszy pytań</li>
+                            <li>Weryfikacja integralności zdjęć i blokada pomijania procedur kontroli</li>
+                            <li>Redukcja błędów ludzkich podczas odbioru oprogramowania o ponad 80%</li>
+                            <li>Automatyczny eksport zestawień analitycznych dla kadry zarządzającej</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- PROJEKT 4: PROXMOX ENTERPRISE -->
+                <article class="project-card">
+                    <div class="project-top">
+                        <h3 class="project-title">Produkcyjne Środowisko Wirtualizacji Proxmox VE</h3>
+                        <div class="project-badges">
+                            <span class="project-badge">PROXMOX VE</span>
+                            <span class="project-badge">ZFS STORAGE</span>
+                            <span class="project-badge">LXC / KVM</span>
+                            <span class="project-badge">PBS BACKUP</span>
+                        </div>
+                    </div>
+                    <p class="project-desc">
+                        Wdrożenie lokalnego środowiska wirtualizacyjnego o wysokiej dostępności opartego na hypervisorze Proxmox VE w firmie Lehmann + Partner Polska. Realizacja objęła konfigurację sprzętową, pulę dyskową ZFS z redundancją, wdrożenie lekkich kontenerów aplikacyjnych LXC oraz politykę deduplikowanych kopii zapasowych (Proxmox Backup Server).
+                    </p>
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Wysoka gęstość upakowania usług dzięki kontenerom aplikacyjnym LXC</li>
+                            <li>Ochrona danych na poziomie ZFS snapshots i szyfrowanych kopii PBS</li>
+                            <li>Izolacja sieciowa pomiędzy środowiskami produkcyjnymi i testowymi</li>
+                            <li>Wyczerpująca dokumentacja Disaster Recovery skracająca ewentualny RTO</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- SECTION: KARIERA -->
+        <section id="experience">
+            <div class="section-header">
+                <span class="section-tag">// 04. DOŚWIADCZENIE_KOMERCYJNE</span>
+                <h2 class="section-title">Ścieżka Zawodowa</h2>
+            </div>
+
+            <div class="timeline">
+                <!-- LEHMANN -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-role">Administrator Systemów i Sieci / DevOps</div>
+                            <div class="timeline-company">Lehmann + Partner Polska Sp. z o.o.</div>
+                        </div>
+                        <span class="timeline-date">11.2025 – OBECNIE</span>
+                    </div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Projektowanie, wdrożenie i bieżące zarządzanie środowiskiem wirtualizacyjnym <strong>Proxmox VE</strong> (KVM, kontenery LXC, pule pamięci ZFS).</li>
+                            <li>Przygotowanie i wdrażanie procedur bezpieczeństwa pod kątem <strong>Dyrektywy NIS2</strong> oraz <strong>Ustawy o KSC</strong>; audyty podatności i hardening systemów serwerowych.</li>
+                            <li>Automatyzacja procesów za pomocą <strong>Ansible</strong>, skryptów <strong>Bash/Python</strong> oraz konteneryzacji w <strong>Dockerze</strong>.</li>
+                            <li>Zarządzanie certyfikatami <strong>SSL/TLS</strong>, bezpiecznymi serwerami <strong>Reverse Proxy (Nginx/Apache)</strong> oraz infrastrukturą domenową.</li>
+                            <li>Implementacja i nadzór nad systemem <strong>Zabbix</strong> oraz autorską integracją z <strong>Signal API</strong> (alerting w czasie rzeczywistym).</li>
+                            <li>Projekt i wdrożenie aplikacji kontroli jakości <strong>TesterApp (Python/Flask)</strong> eliminującej błędy w testach.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CORPOTECH -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-role">Młodszy Specjalista ds. IT</div>
+                            <div class="timeline-company">CorpoTech Sp. z o.o., Słupca</div>
+                        </div>
+                        <span class="timeline-date">10.2024 – 11.2025</span>
+                    </div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Projektowanie struktur relacyjnych baz danych i optymalizacja zapytań (<strong>MySQL, Oracle</strong>).</li>
+                            <li>Rozwój i utrzymanie modułów backendowych w języku <strong>PHP</strong> oraz skryptów automatyzujących zadania biurowe.</li>
+                            <li>Zarządzanie infrastrukturą sieciową LAN/WAN/WiFi, serwerami DNS, DHCP oraz konfiguracja poczty elektronicznej.</li>
+                            <li>Wsparcie techniczne użytkowników (Helpdesk II linii), diagnostyka sprzętowa oraz nadzór nad stacjami roboczymi.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- EDUKACJA -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-role">Technik Informatyk & Kwalifikacje Specjalistyczne</div>
+                            <div class="timeline-company">Zespół Szkół Zawodowych im. gen. W. Sikorskiego, Słupca</div>
+                        </div>
+                        <span class="timeline-date">09.2019 – 04.2024</span>
+                    </div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Kwalifikacje zawodowe: Administracja systemami operacyjnymi i sieciami komputerowymi, bazy danych.</li>
+                            <li>Certyfikacje i szkolenia branżowe: <strong>Wdrażanie wymogów Dyrektywy NIS2 i UKSC w infrastrukturze IT</strong>, audytowanie bezpieczeństwa systemów komputerowych.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: KONTAKT -->
+        <section id="contact">
+            <div class="section-header">
+                <span class="section-tag">// 05. NAWIĄŻMY_WSPÓŁPRACĘ</span>
+                <h2 class="section-title">Inicjalizacja Połączenia</h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-block">
+                    <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.7;">
+                        Szukasz zaangażowanego <strong>DevOps Engineera / Administratora Systemów</strong>, który nie tylko utrzyma stabilność serwerów, ale usprawni wdrożenia za pomocą IaC i zabezpieczy infrastrukturę według standardów <strong>NIS2</strong>? Porozmawiajmy o możliwościach współpracy.
+                    </p>
+
+                    <a href="https://github.com/KrystianoGaucho" target="_blank" class="contact-card">
+                        <span class="contact-icon">💻</span>
+                        <div>
+                            <div class="contact-label">KOD ŹRÓDŁOWY & REPOZYTORIA</div>
+                            <div class="contact-value">github.com/KrystianoGaucho</div>
+                        </div>
+                    </a>
+
+                    <a href="https://pl.linkedin.com/in/krystian-chojnacki" target="_blank" class="contact-card">
+                        <span class="contact-icon">💼</span>
+                        <div>
+                            <div class="contact-label">PROFIL ZAWODOWY</div>
+                            <div class="contact-value">linkedin.com/in/krystian-chojnacki</div>
+                        </div>
+                    </a>
+
+                    <a href="mailto:kchojnacki1337@gmail.com" class="contact-card">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <div class="contact-label">POCZTA ELEKTRONICZNA</div>
+                            <div class="contact-value">kchojnacki1337@gmail.com</div>
+                        </div>
+                    </a>
+
+                    <div class="contact-card">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <div class="contact-label">TELEFON</div>
+                            <div class="contact-value">+48 607 265 599</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <div class="contact-label">LOKALIZACJA & MODEL PRACY</div>
+                            <div class="contact-value">Słupca (Wielkopolska) / Zdalnie & Hybrydowo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORMSPREE FORM -->
+                <form action="https://formspree.io/f/xykdyoyp" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">> IMIĘ I NAZWISKO / FIRMA *</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="np. Jan Kowalski / Acme Corp" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">> ADRES E-MAIL *</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="twoj.email@firma.pl" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">> SZCZEGÓŁY PROJEKTU / WIADOMOŚĆ *</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Opisz stanowisko, wyzwanie infrastrukturalne lub temat rozmowy..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; border: none; cursor: pointer;">
+                        <span>[ WYŚLIJ WIADOMOŚĆ ]</span>
+                        <span>→</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Krystian Chojnacki. System Status: <a>Operational</a> • Hosted on Production VPS.</p>
+            <p style="margin-top: 6px; font-size: 0.75rem; color: #475569;">
+                Crafted with clean semantic HTML5, CSS3 & JetBrains Mono.
+            </p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // TYPEWRITER EFFECT
+        const roles = [
+            "DEVOPS & DEVSECOPS ENGINEER",
+            "LINUX & PROXMOX ADMINISTRATOR",
+            "IAC & AUTOMATION SPECIALIST"
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById("typewriter");
+
+        function typeLoop() {
+            const currentRole = roles[roleIndex];
+            if (isDeleting) {
+                typewriterEl.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterEl.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+        setTimeout(typeLoop, 500);
+
+        // HAMBURGER MENU
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        document.querySelectorAll('.m-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // TERMINAL INTERACTIVITY
+        const termCmd = document.getElementById('termCommandText');
+        const termOut = document.getElementById('termInteractiveOutput');
+        const termBody = document.getElementById('termBody');
+
+        const cliDatabase = {
+            'whoami': 'Krystian Chojnacki - DevOps & DevSecOps Engineer. Pasjonat stabilnej infrastruktury, automatyzacji i bezpieczeństwa.',
+            'nis2': '[AUDYT NIS2] Zgodność: Spełniona. Wdrożone: hardening serwerów Linux/Windows, polityki Disaster Recovery, zarządzanie certyfikatami SSL/TLS, audyty uprawnień (Least Privilege).',
+            'stack': 'Ansible, Docker, Terraform, Proxmox VE (ZFS), Debian/Ubuntu Linux, Zabbix API, Signal API, Python (Flask), Nginx, MySQL/PostgreSQL.',
+            'uptime': 'System operacyjny: Linux 6.1.0-hardened-amd64 | Uptime: 412 dni, 14 godz., 23 min | 0 awarii nieobsłużonych.',
+            'contact': 'E-mail: kchojnacki1337@gmail.com | Tel: +48 607 265 599 | GitHub: github.com/KrystianoGaucho | LinkedIn: linkedin.com/in/krystian-chojnacki'
+        };
+
+        function runCli(command) {
+            termCmd.textContent = command;
+            if (cliDatabase[command]) {
+                termOut.innerHTML = `<span style="color: var(--accent-green);">> [OK]:</span> ` + cliDatabase[command];
+            } else {
+                termOut.innerHTML = `<span style="color: #ef4444;">> [ERROR]:</span> Nieznana komenda: ` + command;
+            }
+            termBody.scrollTop = termBody.scrollHeight;
+        }
+    </script>
+</body>
+</html>
